@@ -13,6 +13,7 @@ var startColor = randomColor();
 var ball   = document.querySelector('.ball');
 var garden = document.querySelector('.garden');
 var output = document.querySelector('.output');
+var button = document.getElementById('bb');
 
 var maxX = garden.clientWidth  - ball.clientWidth;
 var maxY = garden.clientHeight - ball.clientHeight;
@@ -23,10 +24,6 @@ var serverURL = "http://demo.redline-china.com";
 ** GAME INITIALISATION
 **************************************************/
 function init() {
-
-
-
-
 
 	// Declare the canvas and rendering context
 
@@ -59,7 +56,18 @@ function init() {
 	// Start listening for events
 	setEventHandlers();
 
+	button.addEventListener("touchstart", changeColor);
+	button.addEventListener("click", changeColor);
+
 };
+
+function changeColor(e) {
+	startColor = randomColor();
+	console.log('change color' + startColor);
+	localPlayer.setColor(startColor);
+	socket.emit("change color player", {color: localPlayer.getColor});
+
+}
 
 function handleOrientation(event) {
 	var x = event.beta;  // In degree in the range [-180,180]
@@ -72,6 +80,8 @@ function handleOrientation(event) {
 	// We constrain the x value to the range [-90,90]
 	if (x >  90) { x =  90};
 	if (x < -90) { x = -90};
+	if (y >  90) { y =  90};
+	if (y < -90) { y = -90};
 	// To make computation easier we shift the range of 
 	// x and y to [0,180]
 	x += 90;
@@ -109,7 +119,7 @@ var setEventHandlers = function() {
 
 function onMove(e) {
 	handleOrientation(e);
-	
+
 	if(localPlayer) {
 		devOris.onMove(e);
 	}
@@ -135,7 +145,7 @@ function onSocketDisconnect() {
 **************************************************/
 function animate() {
 	update();
-	// draw();
+	draw();
 
 	// Request a new animation frame using Paul Irish's shim
 	window.requestAnimFrame(animate);
@@ -164,7 +174,7 @@ function update() {
 ** GAME DRAW
 **************************************************/
 function draw() {
-
+	ball.style.background = startColor;
 };
 
 

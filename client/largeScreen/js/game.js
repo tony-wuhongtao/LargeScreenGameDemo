@@ -60,6 +60,9 @@ var setEventHandlers = function() {
 	// Player move message received
 	socket.on("move player", onMovePlayer);
 
+	// Player change color message received
+	socket.on("change color player", onChangeColorPlayer);
+
 	// Player removed message received
 	socket.on("remove player", onRemovePlayer);
 
@@ -120,6 +123,16 @@ function onMovePlayer(data) {
 	// Update player position
 	movePlayer.setX(data.x);
 	movePlayer.setY(data.y);
+};
+
+function onChangeColorPlayer(data) {
+	var changePlayer = playerById(data.id);
+	// Player not found
+	if (!movePlayer) {
+		console.log("Player not found: "+data.id);
+		return;
+	};
+	changePlayer.setColor(data.color);
 };
 
 // Remove player

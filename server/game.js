@@ -58,6 +58,8 @@ function onSocketConnection(client) {
 	// Listen for move player message
 	client.on("move player", onMovePlayer);
 
+	client.on("change color player", onChangeColorPlayer);
+
 	// Listen for large screen online message
 	client.on("screen online", onScreenOnline);
 };
@@ -131,6 +133,24 @@ function onMovePlayer(data) {
 
 	// Broadcast updated position to connected socket clients
 	this.broadcast.emit("move player", {id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY()});
+};
+
+// Player has moved
+function onChangeColorPlayer(data) {
+	// Find player in array
+	var changePlayer = playerById(this.id);
+
+	// Player not found
+	if (!changePlayer) {
+		util.log("Player not found: "+this.id);
+		return;
+	};
+
+	// Update player position
+	changePlayer.setColor(data.color);
+
+	// Broadcast updated position to connected socket clients
+	this.broadcast.emit("change color player", {id: changePlayer.id, color: changePlayer.getColor()});
 };
 
 

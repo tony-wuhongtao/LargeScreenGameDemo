@@ -9,8 +9,8 @@ var canvas,			// Canvas DOM element
 	remotePlayers,	// Remote players
 	socket;			// Socket connection
 
-//var serverURL = "http://demo.redline-china.com";
-var serverURL = "http://localhost";
+var serverURL = "http://demo.redline-china.com";
+// var serverURL = "http://localhost";
 /**************************************************
 ** GAME INITIALISATION
 **************************************************/

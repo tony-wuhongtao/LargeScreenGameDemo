@@ -84,8 +84,8 @@ function handleOrientation(event) {
 
 	// 10 is half the size of the ball
 	// It center the positioning point to the center of the ball
-	ball.style.top  = (maxX*x/180) + "px";
-	ball.style.left = (maxY*y/180) + "px";
+	ball.style.top  = (maxX*x/180 - 10) + "px";
+	ball.style.left = (maxY*y/180 - 10) + "px";
 	ball.style.background = startColor;
 	
 }
@@ -108,10 +108,12 @@ var setEventHandlers = function() {
 };
 
 function onMove(e) {
+	handleOrientation(e);
+	
 	if(localPlayer) {
 		devOris.onMove(e);
 	}
-	handleOrientation(e);
+	
 }
 
 // Socket connected

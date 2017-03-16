@@ -7,6 +7,8 @@ var Player = function(startX, startY, color) {
 		color = color,
 		id,
 		moveAmount = 2;
+	var canvasWidth = 1024;
+	var canvasHeight =	768;
 
 	// Getters and setters
 	var getX = function() {
@@ -34,28 +36,6 @@ var Player = function(startX, startY, color) {
 	};
 
 	// Update player position
-	var update = function(keys) {
-		// Previous position
-		var prevX = x,
-			prevY = y;
-
-		// Up key takes priority over down
-		if (keys.up) {
-			y -= moveAmount;
-		} else if (keys.down) {
-			y += moveAmount;
-		};
-
-		// Left key takes priority over right
-		if (keys.left) {
-			x -= moveAmount;
-		} else if (keys.right) {
-			x += moveAmount;
-		};
-
-		return (prevX != x || prevY != y) ? true : false;
-	};
-
 	var updateMove = function(devOris) {
 
 		var prevX = x,
@@ -63,12 +43,11 @@ var Player = function(startX, startY, color) {
 
 		// Up key takes priority over down
 		if (devOris.up) {
-			if(y > 3+5){
+			if(prevY > 3+5){
 				y -= 1;
-			}
-			
+			}			
 		} else if (devOris.down) {
-			if(y < canvasHeight-3-5){
+			if(prevY < canvasHeight-3-5){
 				y += 1;
 			}
 			
@@ -76,12 +55,12 @@ var Player = function(startX, startY, color) {
 
 		// Left key takes priority over right
 		if (devOris.left) {
-			if(x > 3+5){
+			if(prevX > 3+5){
 				x -= 1;
 			}
 			
 		} else if (devOris.right) {
-			if(x < canvasWidth-3-5){
+			if(prevX < canvasWidth-3-5){
 				x += 1;
 			}
 			
@@ -104,7 +83,6 @@ var Player = function(startX, startY, color) {
 		setX: setX,
 		setY: setY,
 		setColor: setColor,
-		update: update,
 		updateMove: updateMove,
 		draw: draw
 	}

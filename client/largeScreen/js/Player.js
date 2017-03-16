@@ -7,6 +7,8 @@ var Player = function(startX, startY, color) {
 		color = color,
 		id,
 		moveAmount = 2;
+	var canvasWidth = 1024;
+	var canvasHeight =	768;
 
 	// Getters and setters
 	var getX = function() {
@@ -63,16 +65,28 @@ var Player = function(startX, startY, color) {
 
 		// Up key takes priority over down
 		if (devOris.up) {
-			y -= 1;
+			if(y > 3+5){
+				y -= 1;
+			}
+			
 		} else if (devOris.down) {
-			y += 1;
+			if(y < canvasHeight-3-5){
+				y += 1;
+			}
+			
 		};
 
 		// Left key takes priority over right
 		if (devOris.left) {
-			x -= 1;
+			if(x > 3+5){
+				x -= 1;
+			}
+			
 		} else if (devOris.right) {
-			x += 1;
+			if(x < canvasWidth-3-5){
+				x += 1;
+			}
+			
 		};
 
 		return (prevX != x || prevY != y) ? true : false;
@@ -81,7 +95,10 @@ var Player = function(startX, startY, color) {
 	// Draw player
 	var draw = function(ctx) {
 		ctx.fillStyle = color;
-		ctx.fillRect(x-5, y-5, 10, 10);
+		ctx.beginPath();
+		ctx.arc(x, y, 5, 0, Math.PI*2);
+		ctx.fill();
+		// ctx.fillRect(x-5, y-5, 10, 10);
 	};
 
 	// Define which variables and methods can be accessed

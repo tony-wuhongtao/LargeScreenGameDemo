@@ -57,7 +57,7 @@ function init() {
 	setEventHandlers();
 
 	button.addEventListener("touchstart", changeColor);
-	button.addEventListener("click", changeColor);
+	// button.addEventListener("click", changeColor);
 
 };
 

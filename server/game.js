@@ -57,6 +57,9 @@ function onSocketConnection(client) {
 
 	// Listen for move player message
 	client.on("move player", onMovePlayer);
+
+	// Listen for large screen online message
+	client.on("screen online", onScreenOnline);
 };
 
 // Socket client has disconnected
@@ -68,6 +71,7 @@ function onClientDisconnect() {
 	// Player not found
 	if (!removePlayer) {
 		util.log("Player not found: "+this.id);
+		util.log("Maybe it is screen instead of player.");
 		return;
 	};
 
@@ -77,6 +81,17 @@ function onClientDisconnect() {
 	// Broadcast removed player to connected socket clients
 	this.broadcast.emit("remove player", {id: this.id});
 };
+
+//Large screen client has joined
+function onScreenOnline() {
+	// Send existing players to the Screen
+	var i, existingPlayer;
+	for (i = 0; i < players.length; i++) {
+		existingPlayer = players[i];
+		this.emit("existing players", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), color: existingPlayer.getColor()});
+	};
+};
+
 
 // New player has joined
 function onNewPlayer(data) {

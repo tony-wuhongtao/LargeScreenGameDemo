@@ -18,8 +18,10 @@ var DevOris = function(up, left, right, down) {
 		//gamma <0 -----LEFT
 		if(dltY > 1){
 			that.down = true;
+			that.up = false;
 		}else if(dltY < -1) {
 			that.up = true;
+			that.down = false;
 		}else{
 			that.up = false;
 			that.down = false;
@@ -27,8 +29,10 @@ var DevOris = function(up, left, right, down) {
 
 		if(dltX > 1){
 			that.right = true;
+			taht.left = false;
 		}else if(dltX < -1) {
 			that.left = true;
+			that.right = false;
 		}else{
 			that.right = false;
 			that.left = false;

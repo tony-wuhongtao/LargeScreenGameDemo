@@ -65,7 +65,8 @@ function changeColor(e) {
 	startColor = randomColor();
 	console.log('change color' + startColor);
 	localPlayer.setColor(startColor);
-	socket.emit("change color player", {color: localPlayer.getColor});
+	socket.emit("change color player", {color: localPlayer.getColor()});
+	console.log('emit color'+localPlayer.getColor());
 
 }
 

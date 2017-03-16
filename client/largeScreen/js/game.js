@@ -128,7 +128,7 @@ function onMovePlayer(data) {
 function onChangeColorPlayer(data) {
 	var changePlayer = playerById(data.id);
 	// Player not found
-	if (!movePlayer) {
+	if (!changePlayer) {
 		console.log("Player not found: "+data.id);
 		return;
 	};
